@@ -1,0 +1,132 @@
+.result-container {
+  min-height: 100vh;
+  padding: 50px 20px;
+  background: #f5f7fb;
+  box-sizing: border-box;
+}
+
+.result-container h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 35px;
+}
+
+.overall-card {
+  width: 520px;
+  max-width: 90%;
+  margin: 0 auto 30px;
+  padding: 45px 30px;
+  background: white;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+}
+
+.overall-card h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.score {
+  font-size: 55px;
+  font-weight: bold;
+  color: green;
+}
+
+.performance-card,
+.feedback-card {
+  width: 520px;
+  max-width: 90%;
+  margin: 25px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.performance-card h2,
+.feedback-card h2 {
+  margin-bottom: 20px;
+}
+
+.performance-card p {
+  font-size: 17px;
+  margin: 14px 0;
+}
+
+.feedback-card p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.feedback-card ul {
+  padding-left: 25px;
+}
+
+.feedback-card li {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.loading-box,
+.error-box {
+  width: 520px;
+  max-width: 90%;
+  margin: 50px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.loading-box h2 {
+  margin-bottom: 15px;
+}
+
+.error-box h2 {
+  color: red;
+}
+
+.result-buttons {
+  width: 520px;
+  max-width: 90%;
+  margin: 35px auto;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.result-buttons button,
+.error-box button {
+  padding: 13px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #23408f;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.result-buttons button:hover,
+.error-box button:hover {
+  background: #182f70;
+}
+
+@media (max-width: 600px) {
+  .result-container h1 {
+    font-size: 28px;
+  }
+
+  .overall-card,
+  .performance-card,
+  .feedback-card {
+    width: 95%;
+  }
+
+  .score {
+    font-size: 45px;
+  }
+}

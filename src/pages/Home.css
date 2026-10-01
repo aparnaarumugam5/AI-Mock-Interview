@@ -1,0 +1,29 @@
+.home{
+    text-align:center;
+    padding:80px;
+}
+
+.home h1{
+    color:#1e3a8a;
+    font-size:45px;
+}
+
+.home p{
+    margin-top:20px;
+    font-size:22px;
+}
+
+.home button{
+    margin-top:30px;
+    padding:12px 30px;
+    background:#1e3a8a;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.home button:hover{
+    background:#2563eb;
+}
