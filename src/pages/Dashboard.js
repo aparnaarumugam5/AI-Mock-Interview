@@ -476,7 +476,7 @@
 // }
 
 // export default Dashboard;
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Dashboard.css";
@@ -508,83 +508,80 @@ function Dashboard() {
 
 
   // ==========================================
-  // FETCH CURRENT USER INTERVIEWS ONLY
-  // ==========================================
+// FETCH CURRENT USER INTERVIEWS ONLY
+// ==========================================
 
-  useEffect(() => {
-    fetchInterviews();
-  }, []);
+const fetchInterviews = useCallback(async () => {
+  try {
+    setLoading(true);
 
+    const response = await fetch(
+      "https://ai-mock-interview-backend-yekh.onrender.com/api/interviews"
+    );
 
-  const fetchInterviews = async () => {
-    try {
-
-      setLoading(true);
-
-      const response = await fetch(
-        "https://ai-mock-interview-backend-yekh.onrender.com/api/interviews"
+    if (!response.ok) {
+      throw new Error(
+        "Unable to fetch interviews"
       );
-
-      if (!response.ok) {
-        throw new Error(
-          "Unable to fetch interviews"
-        );
-      }
-
-      const data = await response.json();
-
-      console.log(
-        "📊 All Interviews:",
-        data
-      );
-
-      // ==========================================
-      // FILTER BY LOGGED-IN USER EMAIL
-      // ==========================================
-
-      const userInterviews =
-        Array.isArray(data)
-          ? data.filter(
-              (item) =>
-                String(item.email || "")
-                  .toLowerCase()
-                  .trim() ===
-                String(loggedInEmail)
-                  .toLowerCase()
-                  .trim()
-            )
-          : [];
-
-      console.log(
-        "👤 Current User Email:",
-        loggedInEmail
-      );
-
-      console.log(
-        "🎯 Current User Interviews:",
-        userInterviews
-      );
-
-      setInterviews(
-        userInterviews
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Dashboard Error:",
-        error
-      );
-
-      setInterviews([]);
-
-    } finally {
-
-      setLoading(false);
-
     }
-  };
 
+    const data = await response.json();
+
+    console.log(
+      "📊 All Interviews:",
+      data
+    );
+
+    // ==========================================
+    // FILTER BY LOGGED-IN USER EMAIL
+    // ==========================================
+
+    const userInterviews =
+      Array.isArray(data)
+        ? data.filter(
+            (item) =>
+              String(item.email || "")
+                .toLowerCase()
+                .trim() ===
+              String(loggedInEmail)
+                .toLowerCase()
+                .trim()
+          )
+        : [];
+
+    console.log(
+      "👤 Current User Email:",
+      loggedInEmail
+    );
+
+    console.log(
+      "🎯 Current User Interviews:",
+      userInterviews
+    );
+
+    setInterviews(
+      userInterviews
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Dashboard Error:",
+      error
+    );
+
+    setInterviews([]);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+}, [loggedInEmail]);
+
+useEffect(() => {
+  fetchInterviews();
+}, [fetchInterviews]);
 
   // ==========================================
   // SCORE CALCULATIONS

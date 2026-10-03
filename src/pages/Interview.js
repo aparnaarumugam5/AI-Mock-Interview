@@ -46,7 +46,7 @@ function Interview() {
   const [questionSource, setQuestionSource] =
     useState("");
  
-  const [error, setError] =
+  const [, setError] =
     useState("");
 
 
