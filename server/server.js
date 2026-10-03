@@ -123,32 +123,14 @@ async function generateWithRetry(
 
 }
 
-
-// ======================================================
-// MONGODB CONNECTION
-// ======================================================
-
 mongoose
-  .connect(
-    "mongodb://localhost:27017/interviewAI"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => {
-
-    console.log(
-      "✅ MongoDB Connected"
-    );
-
+    console.log("✅ MongoDB Connected");
   })
   .catch((error) => {
-
-    console.log(
-      "❌ MongoDB Connection Error:",
-      error.message
-    );
-
+    console.log("❌ MongoDB Connection Error:", error.message);
   });
-
-
 // ======================================================
 // MULTER - RESUME UPLOAD
 // ======================================================
