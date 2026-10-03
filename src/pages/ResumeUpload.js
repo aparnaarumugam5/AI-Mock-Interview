@@ -125,7 +125,7 @@
 
 //       // Send resume to backend
 //       const response = await fetch(
-//         "http://localhost:5000/api/resume/upload",
+//         "https://ai-mock-interview-backend-yekh.onrender.com/api/resume/upload",
 //         {
 //           method: "POST",
 //           body: formData,
@@ -280,7 +280,7 @@ function ResumeUpload() {
       formData.append("resume", file);
 
       const response = await fetch(
-        "http://localhost:5000/api/resume/upload",
+        "https://ai-mock-interview-backend-yekh.onrender.com/api/resume/upload",
         {
           method: "POST",
           body: formData,

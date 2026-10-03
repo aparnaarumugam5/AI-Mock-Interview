@@ -123,7 +123,7 @@
 //     try {
 
 //       const response = await fetch(
-//         "http://localhost:5000/api/interviews"
+//         "https://ai-mock-interview-backend-yekh.onrender.com/api/interviews"
 //       );
 
 //       if (!response.ok) {
@@ -522,7 +522,7 @@ function Dashboard() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/interviews"
+        "https://ai-mock-interview-backend-yekh.onrender.com/api/interviews"
       );
 
       if (!response.ok) {

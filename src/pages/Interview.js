@@ -180,7 +180,7 @@ function Interview() {
 
       console.log(
         "API URL:",
-        "http://localhost:5000/api/questions"
+        "https://ai-mock-interview-backend-yekh.onrender.com/api/questions"
       );
 
 
@@ -190,7 +190,7 @@ function Interview() {
 
       const response =
         await fetch(
-          "http://localhost:5000/api/questions",
+          "https://ai-mock-interview-backend-yekh.onrender.com/api/questions",
           {
             method: "POST",
 

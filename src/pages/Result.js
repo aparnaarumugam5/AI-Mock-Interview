@@ -8,7 +8,7 @@
 //   const [result, setResult] = useState(null);
 
 //   useEffect(() => {
-//     fetch("http://localhost:5000/api/interview")
+//     fetch("https://ai-mock-interview-backend-yekh.onrender.com/api/interview")
 //       .then((res) => res.json())
 //       .then((data) => {
 //         console.log(data);
@@ -206,7 +206,7 @@ function Result() {
       console.log("🚀 Sending interview to backend...");
 
       const response = await fetch(
-        "http://localhost:5000/api/interview",
+        "https://ai-mock-interview-backend-yekh.onrender.com/api/interview",
         {
           method: "POST",
 

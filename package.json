@@ -10,12 +10,14 @@
     "axios": "^1.8.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.0",
+    "react-router-dom": "^6.30.6",
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
+  "overrides": {
+  "cookie": "0.7.2"
+} , "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
