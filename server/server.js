@@ -10,6 +10,8 @@ const pdfParse = require("pdf-parse");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -1945,135 +1947,62 @@ app.get(
 
   }
 );
-// ======================================================
+//// ======================================================
 // CONTACT API
 // ======================================================
 
-app.post(
-  "/api/contact",
-  async (req, res) => {
+app.post("/api/contact", async (req, res) => {
+  console.log("📩 CONTACT API CALLED");
 
-    console.log(
-      "📩 CONTACT API CALLED"
-    );
+  try {
+    const { name, email, message } = req.body;
 
-    try {
-
-      const {
-        name,
-        email,
-        message
-      } = req.body;
-
-      if (
-        !name ||
-        !email ||
-        !message
-      ) {
-
-        return res.status(400).json({
-
-          success: false,
-
-          message:
-            "Please fill all fields"
-
-        });
-
-      }
-
-      // ----------------------------------------------
-      // If email is not configured
-      // ----------------------------------------------
-
-      if (!transporter) {
-
-        return res.status(500).json({
-
-          success: false,
-
-          message:
-            "Email service is not configured on the server"
-
-        });
-
-      }
-
-      console.log(
-        "👤 Name:",
-        name
-      );
-
-      console.log(
-        "📧 User Email:",
-        email
-      );
-
-      console.log(
-        "💬 Message:",
-        message
-      );
-
-      const info =
-        await transporter.sendMail({
-
-          from:
-            process.env.EMAIL_USER,
-
-          to:
-            process.env.EMAIL_USER,
-
-          replyTo:
-            email,
-
-          subject:
-            `Contact Message from ${name}`,
-
-          text:
-            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-
-        });
-
-      console.log(
-        "✅ Email sent successfully"
-      );
-
-      console.log(
-        "📨 Message ID:",
-        info.messageId
-      );
-
-      res.json({
-
-        success: true,
-
-        message:
-          "Message sent successfully"
-
-      });
-
-    } catch (error) {
-
-      console.log(
-        "❌ Email Error:",
-        error.message
-      );
-
-      res.status(500).json({
-
+    if (!name || !email || !message) {
+      return res.status(400).json({
         success: false,
-
-        message:
-          "Failed to send email"
-
+        message: "Please fill all fields",
       });
-
     }
 
+    if (!process.env.RESEND_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        message: "Email service is not configured on the server",
+      });
+    }
+
+    console.log("👤 Name:", name);
+    console.log("📧 User Email:", email);
+    console.log("💬 Message:", message);
+
+    const { data, error } = await resend.emails.send({
+      from: "AI Mock Interview <onboarding@resend.dev>",
+      to: process.env.EMAIL_USER,
+      reply_to: email,
+      subject: `Contact Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    console.log("✅ Email sent successfully");
+    console.log("📨 Message ID:", data.id);
+
+    res.json({
+      success: true,
+      message: "Message sent successfully",
+    });
+  } catch (error) {
+    console.log("❌ Email Error:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to send email",
+    });
   }
-);
-
-
+});
 // ======================================================
 // TEST RESUME ENDPOINT
 // ======================================================
